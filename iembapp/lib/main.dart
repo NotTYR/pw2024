@@ -1,3 +1,4 @@
+import 'processhtml.dart';
 import 'keys.dart';
 import 'cookienrvt.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,7 @@ import 'gethtml.dart';
 import 'package:xpath_selector_html_parser/xpath_selector_html_parser.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MaterialApp(home: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -24,17 +25,20 @@ class _MyAppState extends State<MyApp> {
       builder: (context, cookienrvt) {
         if (cookienrvt.hasData) {
           return FutureBuilder(
-              future: GetKeys("221496R", "YouRen1!", cookienrvt.data),
+              future: GetKeys("unhackmeusername", "pw", cookienrvt.data),
               builder: (context, keys) {
                 if (keys.hasData) {
                   return FutureBuilder(
                       future: getHtml(keys.data),
                       builder: (context, html) {
-                        List Notifications = ProcessHtml(html.data);
-                        return Text(
-                          "notifications",
-                          textDirection: TextDirection.ltr,
-                        );
+                        if (html.hasData) {
+                          List Notifications = ProcessHtml(html.data);
+                          return ListView(
+                            children: [Text(Notifications.toString())],
+                          );
+                        } else {
+                          return CircularProgressIndicator();
+                        }
                       });
                 } else {
                   return CircularProgressIndicator();
@@ -49,25 +53,4 @@ class _MyAppState extends State<MyApp> {
       },
     );
   }
-}
-
-List ProcessHtml(html) {
-  print(html.length);
-  List Notifications = [];
-  String temp =
-      html.substring(html.indexOf('<tbody>') + 7, html.indexOf('</tbody>'));
-  String temprow =
-      temp.substring(temp.indexOf('<tr>') + 4, temp.indexOf('</tr>'));
-  // process row
-  List items = [];
-  //print(temprow);
-  items.add(
-      temprow.substring(temprow.indexOf('<td>') + 4, temprow.indexOf('</td>')));
-  temprow = temprow.substring(temprow.indexOf('</td>') + 5);
-  items.add(
-      temprow.substring(temprow.indexOf('<td>') + 4, temprow.indexOf('</td>')));
-  temprow = temprow.substring(temprow.indexOf('</td>') + 5);
-  temp = temp.substring(temp.indexOf('</tr>'));
-
-  return Notifications;
 }
