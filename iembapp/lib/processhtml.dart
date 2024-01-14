@@ -41,9 +41,17 @@ List ProcessRow(String temprow) {
   //id
   output[6] = RegExp('(?<=<a href="\/Board\/content\/)[0-9]*')
       .firstMatch(output[2].trim())?[0];
-  output[1] = RegExp('(?<=tooltip-data=")(.*)(?=">)').firstMatch(output[1])?[0];
   output[2] =
       RegExp('(?<=>)(.*)(?=</a>)').firstMatch(output[2])?[0].toString().trim();
+  if (output[0].toString().contains(" ")) {
+    output[0] = RegExp('.*(?=( ).*)').firstMatch(output[0])?[0].toString();
+  }
+
+  output[1] = RegExp('(?<=tooltip-data=")(.*)(?=">)')
+      .firstMatch(output[1])?[0]
+      .toString()
+      .toUpperCase();
+  //clean up again
   output[3] = RegExp('(?<=alt=")(.*)(?=".*?\/>)').firstMatch(output[3])?[0];
 
   //target

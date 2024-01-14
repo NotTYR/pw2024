@@ -1,3 +1,4 @@
+import 'homepage.dart';
 import 'processhtml.dart';
 import 'keys.dart';
 import 'cookienrvt.dart';
@@ -25,7 +26,7 @@ class _MyAppState extends State<MyApp> {
       builder: (context, cookienrvt) {
         if (cookienrvt.hasData) {
           return FutureBuilder(
-              future: GetKeys("unhackmeusername", "pw", cookienrvt.data),
+              future: GetKeys("221496R", "YouRen1!", cookienrvt.data),
               builder: (context, keys) {
                 if (keys.hasData) {
                   return FutureBuilder(
@@ -33,8 +34,11 @@ class _MyAppState extends State<MyApp> {
                       builder: (context, html) {
                         if (html.hasData) {
                           List Notifications = ProcessHtml(html.data);
-                          return ListView(
-                            children: [Text(Notifications.toString())],
+                          return HomePage(
+                            Notifications: Notifications,
+                            SessionId: keys.data[2],
+                            Auth: keys.data[3],
+                            RVT: keys.data[1],
                           );
                         } else {
                           return CircularProgressIndicator();

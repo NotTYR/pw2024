@@ -34,7 +34,7 @@ Future GetKeys(username, pw, cookienrvt) async {
     cookienrvt[1],
     (RegExp("(?<=ASP.NET_SessionId=)(.*)(?=; path=/;)")
         .firstMatch(Response.headers.toString())?[0]),
-    RegExp("(?<=AuthenticationToken=)(.*)(?=;)")
+    RegExp("(?<=AuthenticationToken=)(.*?)(?=;)")
         .firstMatch(Response.headers.toString())?[0],
   ];
   Keys[2] = RegExp("(.*)(?=; path)").firstMatch(Keys[2])?[0];
