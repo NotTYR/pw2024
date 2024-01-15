@@ -77,10 +77,5 @@ Future<String> GetPost(PostId, SessionId, RVT, Auth) async {
     "Priority": "u=0, i",
   });
   String html = response.body.substring(0, response.body.indexOf("<\body>"));
-  final regex = RegExp('(?=><body>)(.*?)(?=<\/body>)').firstMatch(html)?[0];
-  if (regex != null) {
-    return regex;
-  } else {
-    return html;
-  }
+  return html;
 }
