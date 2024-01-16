@@ -1,3 +1,4 @@
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
@@ -33,7 +34,7 @@ class _PostState extends State<Post> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return ListView(
-                  children: [Text(snapshot.data.toString())],
+                  children: [HtmlWidget(snapshot.data.toString())],
                 );
               } else {
                 return CircularProgressIndicator();
@@ -76,6 +77,6 @@ Future<String> GetPost(PostId, SessionId, RVT, Auth) async {
     "Accept-Language": "en-US,en;q=0.9",
     "Priority": "u=0, i",
   });
-  String html = response.body.substring(0, response.body.indexOf("<\body>"));
+  String html = response.body;
   return html;
 }
