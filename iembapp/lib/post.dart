@@ -78,5 +78,5 @@ Future<String> GetPost(PostId, SessionId, RVT, Auth) async {
     "Priority": "u=0, i",
   });
   String html = response.body;
-  return html;
+  return html.substring(html.IndexOf('</html>'));
 }
